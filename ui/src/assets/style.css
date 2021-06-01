@@ -1,0 +1,277 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/********/
+:root {
+  --waiting-bg:     yellow;
+  --waiting-border: orange;
+
+  --blocked-bg:     #f49797;
+  --blocked-border: firebrick;
+}
+header, footer {
+  color: white;
+  background-color: black;
+  font: 9pt/11pt sans-serif;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+header h1 {
+  font: 12pt/24pt sans-serif;
+  padding: 4pt 16pt;
+}
+header nav {
+  display: flex;
+  list-style: none;
+}
+header nav li {
+  margin: 0 0.75em;
+}
+header nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+footer {
+  text-align: center;
+  padding: 2em;
+  color: #ffffff44;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+body #main {
+  flex-grow: 1;
+}
+
+#main {
+  margin: 1em auto;
+  max-width: 960px;
+}
+
+#main .board {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+.board > div {
+  padding: 2em;
+}
+.board > div:nth-child(1),
+.board > div:nth-child(3) {
+  xborder-right: 1px solid #ccc;
+}
+.board > div:nth-child(1),
+.board > div:nth-child(2) {
+  xborder-bottom: 1px solid #ccc;
+}
+
+.board > div.waiting-on-me {
+  background-color: #a1f99a22;
+}
+.board > div.out-for-review {
+  background-color: #67bced22;
+}
+.board > div.free-and-clear {
+  background-color: #f469f922;
+}
+.board > div.blocked {
+  background-color: #fdc94e33;
+}
+.board > div.waiting-on-me,
+.board > div.out-for-review,
+.board > div.free-and-clear,
+.board > div.blocked {
+  box-shadow: inset 0 0 1em 0.75em #fff;
+}
+
+.board .no-data {
+  font: 12pt/18pt sans-serif;
+  color: #0004;
+  padding: 2em 0;
+  text-align: center;
+}
+
+h2 {
+  font: 18pt/22pt sans-serif;
+  border-bottom: 1px dotted 
+}
+
+:root {
+  --icon-size: 48px;
+}
+
+.board ul {
+  min-height: 4em;
+  border: 4px dashed transparent;
+}
+.board ul.droppable {
+  border-color: blue;
+}
+.board li {
+  display: grid;
+  grid-template-columns: var(--icon-size) repeat(4, 1fr);
+  grid-gap: 4pt;
+  margin: 8pt 8pt 24pt 8pt;
+}
+.board li img {
+  height: var(--icon-size);
+  width: var(--icon-size);
+  border-radius: 100%;
+  grid-row: 1 / 4;
+}
+.board li h3 {
+  grid-column: 2 / 6;
+  font: 16pt/20pt sans-serif;
+}
+.board li label {
+  display: none;
+}
+.board li .project {
+  grid-column: 2 / 5;
+}
+.board li .blockage {
+  grid-column: 2 / 6;
+}
+.board li .project,
+.board li .last-updated,
+.board li .due-date,
+.board li .blocked-on {
+  font: 8pt/11pt monospace;
+}
+.board li .last-updated,
+.board li .due-date,
+.board li .blocked-on {
+  text-align: right;
+}
+.board li .blockage {
+  background-color: var(--blocked-bg);;
+  border: 1px solid var(--blocked-border);
+  padding: 0.5em;
+  font-family: sans-serif;
+}
+.board .waiting-on-me .blockage {
+  background-color: var(--waiting-bg);
+  border-color:     var(--waiting-border);
+}
+.board li .blockage p {
+  margin: 0;
+}
+.board li .blockage p:not(:first-child) {
+  margin: 1em 0;
+}
+
+
+#lb {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-color: #000000cc;
+  display: grid;
+  grid-template-columns: 10vw 1fr 10vw;
+  grid-template-rows: 20vh 1fr 20vh;
+}
+#lb > div {
+  grid-column: 2 / 3;
+  grid-row:    2 / 3;
+  background-color: #fff;
+  padding: 1em;
+}
+
+#lb form {
+  margin: 2em 0 5em 0;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  gap: 18pt;
+  min-width: 800px
+}
+#lb form label {
+  text-align: right;
+  font: 9pt/11pt sans-serif;
+  padding: 4pt 0;
+}
+#lb form textarea[name="blockage"],
+#lb form div:last-child {
+  grid-column: 2 / 3;
+}
+#lb form input,
+#lb form select,
+#lb form textarea {
+  font: 12pt/16pt sans-serif;
+  padding: 0.5em;
+  outline: none;
+  border: none;
+  box-shadow: 0 0 5pt #ccc;
+}
+#lb form textarea {
+  min-height: 16ex;
+}
+#lb form input::placeholder,
+#lb form textarea::placeholder {
+  opacity: 0;
+}
+#lb form input:focus::placeholder,
+#lb form textarea:focus::placeholder {
+  opacity: 0.8;
+  color: #ccc;
+}
+#lb form input[name="title"] {
+  font: 18pt/24pt sans-serif;
+  font-weight: bold;
+}
+#lb form button {
+  font: 10pt/22pt sans-serif;
+  font-weight: bold;
+  background-color: #0e6cbf;
+  color: white;
+  border: 0;
+  border-radius: 4pt;
+  padding: 3pt 12pt;
+  cursor: pointer;
+  box-shadow: 0 0 5pt #ccc;
+}
