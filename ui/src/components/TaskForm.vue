@@ -246,7 +246,6 @@ form textarea, form textarea:focus, form textarea:hover {
 }
 form textarea {
   min-height: 6em;
-  font-family: inherit;
 }
 
 form h2 {
