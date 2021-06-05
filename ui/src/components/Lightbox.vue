@@ -12,7 +12,7 @@ export default {
   },
   methods: {
     hide() {
-      document.body.style.overflow = '';
+      document.body.style.overflow = 'auto';
       this.$emit('hide');
     }
   }
