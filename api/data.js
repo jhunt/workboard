@@ -48,7 +48,10 @@ module.exports = class {
   }
 
   deleteTask(id) {
-    return this.r.del(this.key(`task:${id}`))
+    return Promise.all([
+      this.r.del(this.key(`task:${id}`)),
+      this.r.lrem(this.key('tasks'), 0, id),
+    ])
   }
 
   log(id, event) {
