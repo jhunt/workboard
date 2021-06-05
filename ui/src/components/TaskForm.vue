@@ -306,4 +306,13 @@ form label {
   font: 16pt/18pt sans-serif;
   margin-top: 1em;
 }
+
+@media screen and (max-width: 700px) {
+  .status-selector {
+    grid-template-columns: 1fr;
+  }
+  form > div {
+    grid-column: 1 / 3;
+  }
+}
 </style>

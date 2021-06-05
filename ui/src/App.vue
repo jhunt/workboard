@@ -91,26 +91,4 @@ export default {
 
 <style>
 @import 'assets/style.css';
-
-h1 {
-  text-align: center;
-  font: bold 24pt/32pt sans-serif;
-}
-
-button#new-task {
-  background-color: #68c187;
-  font-size: 12pt;
-  font-weight: bold;
-  padding: 1em 2em;
-  border: none;
-  border-radius: 0.5em;
-  color: #fff;
-  border: 2px solid #4c8e63;
-  box-shadow: 0 0 5pt #aaa;
-  margin: 5pt;
-  display: block;
-  cursor: pointer;
-  position: fixed;
-  top: 1em; right: 1em;
-}
 </style>
