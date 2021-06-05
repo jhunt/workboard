@@ -1,5 +1,5 @@
 <template>
-  <div class="lightbox" @click.self="hide">
+  <div class="lightbox" @click.self="$emit('hide')">
     <div><slot /></div>
   </div>
 </template>
@@ -10,11 +10,8 @@ export default {
   mounted() {
     document.body.style.overflow = 'hidden';
   },
-  methods: {
-    hide() {
-      document.body.style.overflow = 'auto';
-      this.$emit('hide');
-    }
+  destroyed() {
+    document.body.style.overflow = '';
   }
 }
 </script>
