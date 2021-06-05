@@ -37,7 +37,7 @@
 
       <div class="notes">
         <label>Notes</label>
-        <textarea name="notes" />
+        <textarea name="notes" v-model="notes" />
         <div><button>Save</button></div>
       </div>
     </form>
@@ -61,6 +61,7 @@ export default {
       isFree:      this.task.status == 'free',
       isReview:    this.task.status == 'review',
       isBlocked:   this.task.blockedNote != '',
+      notes:       this.task.notes,
 
       waitingNote: this.task.waitingNote,
       blockedNote: this.task.blockedNote,
@@ -78,6 +79,7 @@ export default {
         project: this.project,
         status:  this.status,
         color:   this.color,
+        notes:   this.notes,
         waitingNote: this.isWaiting ? this.waitingNote : '',
         blockedBy:   this.isBlocked ? this.blockedBy   : '',
         blockedNote: this.isBlocked ? this.blockedNote : '',
