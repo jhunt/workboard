@@ -1,5 +1,5 @@
 <template>
-  <div class="lightbox" @click.self="$emit('hide')">
+  <div class="lightbox" @click.self="hide">
     <div><slot /></div>
   </div>
 </template>
@@ -7,6 +7,15 @@
 <script>
 export default {
   name: 'Lightbox',
+  mounted() {
+    document.body.style.overflow = 'hidden';
+  },
+  methods: {
+    hide() {
+      document.body.style.overflow = '';
+      this.$emit('hide');
+    }
+  }
 }
 </script>
 
@@ -15,6 +24,7 @@ export default {
     transition: display 8s ease-in-out 0.5s;
     display: grid;
     position: fixed;
+    overflow-y: auto;
     top: 0; right: 0; bottom: 0; left: 0;
     background-color: #000000dd;
 
@@ -26,6 +36,7 @@ export default {
     grid-row: 2 / 3;
     background-color: #fff;
     padding: 1em;
-    overflow: auto;
+    overflow-y: auto;
+    position: relative;
   }
 </style>

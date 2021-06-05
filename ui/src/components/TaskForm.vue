@@ -224,6 +224,10 @@ input[name="title"] {
   font: 22pt/36pt sans-serif;
   padding: 2pt;
 }
+input[name="project"] {
+  font: 12pt/12pt sans-serif;
+  padding: 2pt;
+}
 
 form {
   padding: 2em 1em;
