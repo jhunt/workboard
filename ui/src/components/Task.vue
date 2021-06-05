@@ -5,16 +5,16 @@
     <h3>{{ task.title }}</h3>
     <span class="project"><label>Project</label>{{ task.project }}</span>
 
-    <template v-if="task.status == 'blocked'">
-      <span class="blocked-on"><label>Blocked on</label>{{ task.blockedBy }}</span>
-      <div class="blockage" v-if="task.blockedNote != ''">
+    <template v-if="task.blockedNote != ''">
+      <span class="blocked blocked-on"><label>Blocked on</label>{{ task.blockedBy }}</span>
+      <div class="blockage blocked" v-if="task.blockedNote != ''">
         <p>{{ task.blockedNote }}</p>
       </div>
     </template>
 
-    <template v-if="task.status == 'waiting'">
-      <span class="last-updated"><label>Updated</label>{{ task.updated }}</span>
-      <div class="blockage" v-if="task.waitingNote != ''">
+    <template v-if="task.waitingNote != ''">
+      <span class="waiting last-updated"><label>Updated</label>{{ task.updated }}</span>
+      <div class="blockage waiting" v-if="task.waitingNote != ''">
         <p>{{ task.waitingNote }}</p>
       </div>
     </template>

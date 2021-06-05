@@ -196,6 +196,10 @@ h2 {
   padding: 0.5em;
   font-family: sans-serif;
 }
+.board .waiting-on-me .blocked,
+.board .blocked .waiting {
+  display: none;
+}
 .board .waiting-on-me .blockage {
   background-color: var(--waiting-bg);
   border-color:     var(--waiting-border);
