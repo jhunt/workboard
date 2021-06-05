@@ -6,12 +6,13 @@
       <TaskForm @updated="updated" :task="blankTask()" />
     </Lightbox>
     <Board
+      :context=context
       :waiting=waiting
       :free=free
       :blocked=blocked
       :review=review
       @updated="updated"
-      @closed="sync" />
+      @closed="close" />
   </div>
 </template>
 
@@ -24,6 +25,8 @@ export default {
   components: {Board,Lightbox,TaskForm},
 
   data() {
+    let q = Object.fromEntries(document.location.search.replace(/^\?/, '').split(/&/).map(s => s.split(/=/)));
+
     return {
       title:   'Workboard!',
 
@@ -33,10 +36,15 @@ export default {
       review:  [],
 
       newTask: false,
+
+      context: q.c
     }
   },
 
   methods: {
+    u(rel) {
+      return (this.context ? `/w/_/${this.context}` : '/w') + rel;
+    },
     sync() {
       console.log('syncing tasks...');
       fetch('/w')
@@ -45,7 +53,7 @@ export default {
           this.title = the.title
         })
 
-      fetch('/w/tasks')
+      fetch(this.u('/tasks'))
         .then(r => r.json())
         .then(the => {
           this.free = [];
@@ -53,6 +61,9 @@ export default {
           this.waiting = [];
           this.review  = [];
           the.tasks.forEach(task => {
+            if (!task) {
+              return;
+            }
             let seen = false
             if (task.blockedNote != '') {
               this.blocked.push(task);
@@ -80,8 +91,24 @@ export default {
     },
     updated(task) {
       this.newTask = false
-      this.sync(task)
-    }
+      const p = ('id' in task)
+              ? fetch(this.u(`/task/${task.id}`), {
+                  method: 'PUT',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(task),
+                })
+              : fetch(this.u('/tasks'), {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(task),
+                })
+      p.then(r => r.json())
+       .then(task => this.sync(task))
+    },
+    close(task) {
+      fetch(this.u(`/task/${task.id}`), { method: 'DELETE' })
+        .then(() => this.sync())
+    },
   },
 
   mounted() {

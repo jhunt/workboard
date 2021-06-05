@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const DB = require("./data");
+const controller = require("./controller");
 
 
 const app = express();
@@ -16,44 +16,45 @@ app.get('/w', (req, res) => {
 });
 
 app.get('/w/tasks', (req, res) => {
-  const db = new DB();
-  db.getTasks()
-    .then(tasks => res.json({tasks}));
+  controller.getAllTasks(null, req, res);
+});
+app.get('/w/_/:context/tasks', (req, res) => {
+  controller.getAllTasks(req.params.context, req, res);
 });
 
 app.post('/w/tasks', (req, res) => {
-  const db = new DB();
-  db.createTask(req.body)
-    .then(task => res.json({task}));
+  controller.createTask(null, req, res);
+});
+app.post('/w/_/:context/tasks', (req, res) => {
+  controller.createTask(req.params.context, req, res);
 });
 
 app.get('/w/task/:id', (req, res) => {
-  const db = new DB();
-  db.getTask(req.params.id)
-    .then(task => res.json({task: JSON.parse(task)}));
+  controller.getTask(null, req, res);
+});
+app.get('/w/_/:context/task/:id', (req, res) => {
+  controller.getTask(req.params.context, req, res);
 });
 
 app.put('/w/task/:id', (req, res) => {
-  const db = new DB();
-  const task = req.body;
-  task.id = req.params.id;
-
-  db.updateTask(task)
-    .then(() => db.getTask(task.id))
-    .then(task => res.json({task: JSON.parse(task)}));
+  controller.updateTask(null, req, res);
+});
+app.put('/w/_/:context/task/:id', (req, res) => {
+  controller.updateTask(req.params.context, req, res);
 });
 
 app.delete('/w/task/:id', (req, res) => {
-  const db = new DB();
-
-  db.deleteTask(req.params.id)
-    .then(() => res.status(204).send());
+  controller.deleteTask(null, req, res);
+});
+app.delete('/w/_/:context/task/:id', (req, res) => {
+  controller.deleteTask(req.params.context, req, res);
 });
 
 app.post('/w/task/:id/log', (req, res) => {
-  const db = new DB();
-  db.log(req.params.id, req.body)
-    .then(() => res.json({ok: "logged"}));
+  controller.appendLogEntry(null, req, res);
+});
+app.post('/w/_/:context/task/:id/log', (req, res) => {
+  controller.appendLogEntry(req.params.context, req, res);
 });
 
 const port = process.env.PORT || 4000;

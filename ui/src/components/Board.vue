@@ -46,7 +46,7 @@
 import Task from '@/components/Task'
 export default {
   name: 'Board',
-  props: ['waiting', 'blocked', 'free', 'review'],
+  props: ['context', 'waiting', 'blocked', 'free', 'review'],
   components: {Task},
   methods: {
     updated(task) {

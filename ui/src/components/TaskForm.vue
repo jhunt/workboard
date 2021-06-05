@@ -75,8 +75,7 @@ export default {
   methods: {
     close() {
       if (confirm('Closing this task will remove it from this board, permanently.  That okay?')) {
-        fetch(`/w/task/${this.task.id}`, { method: 'DELETE' })
-          .then(this.$emit('closed', this.task))
+        this.$emit('closed', this.task)
       }
     },
     submit(event) {
@@ -95,19 +94,7 @@ export default {
       }
       event.target.elements.forEach(e => {if (e.name != '') { data[e.name] = e.value }})
 
-      const p = ('id' in this.task)
-              ? fetch(`/w/task/${this.task.id}`, {
-                  method: 'PUT',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(data),
-                })
-              : fetch('/w/tasks', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(data),
-                })
-      p.then(r => r.json())
-       .then(task => this.$emit('updated', task))
+      this.$emit('updated', data)
     },
 
     pickWaiting() {
