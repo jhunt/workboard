@@ -43,6 +43,13 @@ app.put('/w/task/:id', (req, res) => {
     .then(task => res.json({task: JSON.parse(task)}));
 });
 
+app.delete('/w/task/:id', (req, res) => {
+  const db = new DB();
+
+  db.deleteTask(req.params.id)
+    .then(() => res.status(204).send());
+});
+
 app.post('/w/task/:id/log', (req, res) => {
   const db = new DB();
   db.log(req.params.id, req.body)

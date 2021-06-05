@@ -42,6 +42,10 @@ module.exports = class {
     return this.r.get(`task:${id}`)
   }
 
+  deleteTask(id) {
+    return this.r.del(`task:${id}`)
+  }
+
   log(id, event) {
     return this.r.rpush(`log:${id}`, JSON.stringify(event));
   }

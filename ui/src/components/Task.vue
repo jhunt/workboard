@@ -24,7 +24,7 @@
     </template>
 
     <Lightbox v-if="popup" @hide="popup = false">
-      <TaskForm :task="task" @updated="updated" />
+      <TaskForm :task="task" @updated="updated" @closed="closed" />
     </Lightbox>
   </li>
 </template>
@@ -57,9 +57,12 @@ export default {
   },
   methods: {
     updated(task) {
-      console.log('updated?')
       this.popup = false
       this.$emit('updated', task)
+    },
+    closed(task) {
+      this.popup = false
+      this.$emit('closed', task)
     }
   }
 }

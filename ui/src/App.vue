@@ -10,7 +10,8 @@
       :free=free
       :blocked=blocked
       :review=review
-      @updated="updated" />
+      @updated="updated"
+      @closed="sync" />
   </div>
 </template>
 

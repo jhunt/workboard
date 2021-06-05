@@ -6,7 +6,7 @@
         You're not blocking anyone!  Go you! 🎉
       </div>
       <ul v-else>
-        <Task v-for="task in waiting" :task="task" :key="task.id" @updated="updated"/>
+        <Task v-for="task in waiting" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -16,7 +16,7 @@
         <p>Nothing is out for review.<br>Time to dig into that backlog! 🎉</p>
       </div>
       <ul v-else>
-        <Task v-for="task in review" :task="task" :key="task.id" @updated="updated"/>
+        <Task v-for="task in review" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -26,7 +26,7 @@
         The easy part is done.  Now go do some bizdev! 🎉
       </div>
       <ul v-else>
-        <Task v-for="task in free" :task="task" :key="task.id" @updated="updated"/>
+        <Task v-for="task in free" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -36,7 +36,7 @@
         No tasks are blocked by others.  Go team! 🎉
       </div>
       <ul v-else>
-        <Task v-for="task in blocked" :task="task" :key="task.id" @updated="updated"/>
+        <Task v-for="task in blocked" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
   </div>
@@ -50,8 +50,10 @@ export default {
   components: {Task},
   methods: {
     updated(task) {
-      console.log('board task update detected; propagating');
       this.$emit('updated', task)
+    },
+    closed(task) {
+      this.$emit('closed', task)
     }
   }
 }

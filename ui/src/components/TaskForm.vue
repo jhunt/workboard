@@ -38,7 +38,10 @@
       <div class="notes">
         <label>Notes</label>
         <textarea name="notes" v-model="notes" />
-        <div><button>Save</button></div>
+        <div>
+          <button type="submit">Save</button>
+          <button type="button" rel="close" v-if="isReview" @click="close">Done 🎉</button>
+        </div>
       </div>
     </form>
   </div>
@@ -70,6 +73,12 @@ export default {
   },
 
   methods: {
+    close() {
+      if (confirm('Closing this task will remove it from this board, permanently.  That okay?')) {
+        fetch(`/w/task/${this.task.id}`, { method: 'DELETE' })
+          .then(this.$emit('closed', this.task))
+      }
+    },
     submit(event) {
       event.preventDefault();
 
@@ -300,8 +309,12 @@ form button {
   border: 0;
   border-radius: 4pt;
   padding: 3pt 12pt;
+  margin-right: 4pt;
   cursor: pointer;
   box-shadow: 0 0 5pt #ccc;
+}
+form button[rel=close] {
+  background-color: #349d54;
 }
 form label {
   font: 16pt/18pt sans-serif;
