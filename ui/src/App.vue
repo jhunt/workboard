@@ -5,6 +5,12 @@
     <Lightbox v-if="newTask" @hide="newTask = false">
       <TaskForm @updated="updated" :task="blankTask()" />
     </Lightbox>
+
+    <nav v-if="contexts.length > 0">
+      <li v-for="c in contexts" :key="c">
+        <a :href="`?c=${c}`">{{ c }}</a>
+      </li>
+    </nav>
     <Board
       :projects=projects
       :context=context
@@ -41,6 +47,7 @@ export default {
       blocked: [],
       review:  [],
 
+      contexts: [],
       projects: {},
 
       newTask: false,
@@ -60,6 +67,10 @@ export default {
         .then(the => {
           this.title = this.context ? `${the.title} (${this.context})` : the.title
         })
+
+      fetch('/w/contexts')
+        .then(r => r.json())
+        .then(the => this.contexts = the)
 
       fetch(this.u('/tasks'))
         .then(r => r.json())
@@ -131,4 +142,24 @@ export default {
 
 <style>
 @import 'assets/style.css';
+
+nav {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 1em;
+}
+nav li {
+  padding: 8pt
+}
+nav li a {
+  font-family: monospace;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0067ac;
+  padding: 4pt 6pt;
+  border-radius: 3pt;
+}
 </style>

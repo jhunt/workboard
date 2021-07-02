@@ -1,6 +1,12 @@
 const DB = require("./data");
 
 module.exports = {
+  getAllContexts(req, res) {
+    const db = new DB()
+    db.getContexts()
+      .then(contexts => res.json(contexts));
+  },
+
   getAllTasks(c, req, res) {
     const db = new DB(c);
     db.getTasks()

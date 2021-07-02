@@ -12,10 +12,17 @@ module.exports = class {
   constructor(prefix = null) {
     this.p = prefix
     this.r = new Redis(process.env.REDIS_PORT, process.env.REDIS_HOST);
+    if (prefix) {
+      this.r.zadd('contexts', 1, prefix)
+    }
   }
 
   key(k) {
     return this.p ? `${this.p}:${k}` : k
+  }
+
+  getContexts() {
+    return this.r.zrangebyscore('contexts', 1, 1);
   }
 
   getTasks() {

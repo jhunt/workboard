@@ -15,6 +15,10 @@ app.get('/w', (req, res) => {
   });
 });
 
+app.get('/w/contexts', (req, res) => {
+  controller.getAllContexts(req, res);
+});
+
 app.get('/w/tasks', (req, res) => {
   controller.getAllTasks(null, req, res);
 });
