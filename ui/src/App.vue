@@ -3,7 +3,7 @@
     <h1>{{ title }}</h1>
     <button id="new-task" @click="newTask = true">Add</button>
     <Lightbox v-if="newTask" @hide="newTask = false">
-      <TaskForm @updated="updated" :task="blankTask()" />
+      <TaskForm @updated="updated" :task="blankTask()" :projects="projects" />
     </Lightbox>
 
     <nav v-if="contexts.length > 0">
