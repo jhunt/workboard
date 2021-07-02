@@ -10,7 +10,7 @@
         No <em>matching</em> blockers found, so that's a start...
       </div>
       <ul v-else>
-        <Task v-for="task in waitingTasks" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
+        <Task v-for="task in waitingTasks" :task="task" :projects="projects" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -23,7 +23,7 @@
         <p>There <em>is</em> stuff out for review,<br>but not matching your filter criteria...</p>
       </div>
       <ul v-else>
-        <Task v-for="task in reviewTasks" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
+        <Task v-for="task in reviewTasks" :task="task" :projects="projects" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -36,7 +36,7 @@
         <p>Nothing(-ish) is free and clear,<br>maybe try a different filter?</p>
       </div>
       <ul v-else>
-        <Task v-for="task in freeTasks" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
+        <Task v-for="task in freeTasks" :task="task" :projects="projects" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
 
@@ -49,7 +49,7 @@
         <p>No (matching) tasks are blocked by others.<br>That's good, right?</p>
       </div>
       <ul v-else>
-        <Task v-for="task in blockedTasks" :task="task" :key="task.id" @updated="updated" @closed="closed"/>
+        <Task v-for="task in blockedTasks" :task="task" :projects="projects" :key="task.id" @updated="updated" @closed="closed"/>
       </ul>
     </div>
   </div>
@@ -59,7 +59,7 @@
 import Task from '@/components/Task'
 export default {
   name: 'Board',
-  props: ['context', 'waiting', 'blocked', 'free', 'review'],
+  props: ['context', 'waiting', 'blocked', 'free', 'review', 'projects'],
   components: {Task},
   data() {
     return {

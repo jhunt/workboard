@@ -6,6 +6,7 @@
       <TaskForm @updated="updated" :task="blankTask()" />
     </Lightbox>
     <Board
+      :projects=projects
       :context=context
       :waiting=waiting
       :free=free
@@ -35,6 +36,8 @@ export default {
       blocked: [],
       review:  [],
 
+      projects: {},
+
       newTask: false,
 
       context: q.c
@@ -60,9 +63,13 @@ export default {
           this.blocked = [];
           this.waiting = [];
           this.review  = [];
+          this.projects = {};
           the.tasks.forEach(task => {
             if (!task) {
               return;
+            }
+            if (typeof(task.project) !== 'undefined' && !(task.project in this.projects)) {
+              this.projects[task.project] = task.color
             }
             let seen = false
             if (task.blockedNote != '') {

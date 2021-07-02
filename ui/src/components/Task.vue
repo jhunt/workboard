@@ -24,7 +24,7 @@
     </template>
 
     <Lightbox v-if="popup" @hide="popup = false">
-      <TaskForm :task="task" @updated="updated" @closed="closed" />
+      <TaskForm :task="task" :projects="projects" @updated="updated" @closed="closed" />
     </Lightbox>
   </li>
 </template>
@@ -36,7 +36,7 @@ import TaskForm from '@/components/TaskForm.vue'
 export default {
   name: 'Task',
   components: {TaskForm,Lightbox},
-  props: ['task'],
+  props: ['task', 'projects'],
   data() {
     return {
       popup: false

@@ -53,7 +53,7 @@ import ColorPicker from '@/components/ColorPicker'
 export default {
   name: 'TaskForm',
   components: {ColorPicker},
-  props: ['task'],
+  props: ['task', 'projects'],
   data() {
     return {
       title:       this.task.title,
@@ -69,6 +69,16 @@ export default {
       waitingNote: this.task.waitingNote,
       blockedNote: this.task.blockedNote,
       blockedBy:   this.task.blockedBy,
+    }
+  },
+
+  watch: {
+    project(v) {
+      if (!this.color && (v in this.projects)) {
+        this.color = this.projects[v]
+      } else if (v === '') {
+        this.color = undefined
+      }
     }
   },
 
