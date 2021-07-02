@@ -7,6 +7,7 @@
     </Lightbox>
 
     <nav v-if="contexts.length > 0">
+      <li><a href="?">(main)</a></li>
       <li v-for="c in contexts" :key="c">
         <a :href="`?c=${c}`">{{ c }}</a>
       </li>
