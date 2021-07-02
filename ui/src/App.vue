@@ -88,11 +88,11 @@ export default {
               this.projects[task.project] = task.color
             }
             let seen = false
-            if (task.blockedNote != '') {
+            if (task.status == 'blocked' || task.blockedNote != '') {
               this.blocked.push(task);
               seen = true
             }
-            if (task.waitingNote != '') {
+            if (task.status == 'waiting' || task.waitingNote != '') {
               this.waiting.push(task);
               seen = true
             }
