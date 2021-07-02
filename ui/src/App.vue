@@ -27,6 +27,11 @@ export default {
 
   data() {
     let q = Object.fromEntries(document.location.search.replace(/^\?/, '').split(/&/).map(s => s.split(/=/)));
+    if (q.c) {
+      document.title = `${q.c} | workboard`
+    } else {
+      document.title = `workboard`
+    }
 
     return {
       title:   'Workboard!',
@@ -53,7 +58,7 @@ export default {
       fetch('/w')
         .then(r => r.json())
         .then(the => {
-          this.title = the.title
+          this.title = this.context ? `${the.title} (${this.context})` : the.title
         })
 
       fetch(this.u('/tasks'))
